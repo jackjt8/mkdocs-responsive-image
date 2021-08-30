@@ -1,36 +1,23 @@
-# mkdocs-plugin-template
+# mkdocs-responsive-image
 
-This is a template for a MkDocs plugin.
+A MkDocs plugin for automatically resizing images.
 
-## Setup
+WIP
 
-Install the plugin using pip:
+## Quick start
 
-`pip install mkdocs-your-plugin-name`
+If you want to try this plugin as-it-is, follow these steps:
 
-Activate the plugin in `mkdocs.yml`:
-```yaml
-plugins:
-  - search
-  - your-plugin-name
-```
+1. Download this repo and (eventually) unzip it in a folder
 
-> **Note:** If you have no `plugins` entry in your config file yet, you'll likely also want to add the `search` plugin. MkDocs enables it by default if there is no `plugins` entry set, but now you have to enable it explicitly.
+2. Inside the project folder, execute the command 
+   `python setup.py develop` to install 
+   the plugin on your local machine. 
 
-More information about plugins in the [MkDocs documentation][mkdocs-plugins].
+3. Go to your mkdocs project folder, edit the `mkdocs.yml` file 
+   and add these few lines at the end:
 
-## Config
-
-* `param` - This does something
-
-## Usage
-
-## See Also
-
-More information about templates [here][mkdocs-template].
-
-More information about blocks [here][mkdocs-block].
-
-[mkdocs-plugins]: http://www.mkdocs.org/user-guide/plugins/
-[mkdocs-template]: https://www.mkdocs.org/user-guide/custom-themes/#template-variables
-[mkdocs-block]: https://www.mkdocs.org/user-guide/styling-your-docs/#overriding-template-blocks
+   ```yaml
+   plugins:
+       - responsive-image
+   ```
