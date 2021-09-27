@@ -21,3 +21,32 @@ If you want to try this plugin as-it-is, follow these steps:
    plugins:
        - responsive-image
    ```
+   
+## Configuration
+
+```
+plugins:
+	- responsive-image:
+		# Set to 95 internal
+        default_quality: 90
+		
+        sizes: 320, 640, 768, 1024, 1366, 1600, 1920, 3840
+        
+        # The base directory where assets are stored. This is used to determine the
+        # `dirname` value in `output_path_format` below.
+        base_path: assets
+        
+        # [Optional, Default: assets/resized/%{filename}-%{width}x%{height}.%{extension}]
+        # The template used when generating filenames for resized images. Must be a
+        # relative path.
+        #
+        # Parameters available are:
+        #   %{dirname}     Directory of the file relative to `base_path` (assets/sub/dir/some-file.jpg => sub/dir)
+        #   %{basename}    Basename of the file (assets/some-file.jpg => some-file.jpg)
+        #   %{filename}    Basename without the extension (assets/some-file.jpg => some-file)
+        #   %{extension}   Extension of the file (assets/some-file.jpg => jpg)
+        #   %{width}       Width of the resized image
+        #   %{height}      Height of the resized image
+        #
+        output_path_format: assets/resized/%{width}/%{dirname}/%{basename}
+```

@@ -1,9 +1,36 @@
 import re
+from mkdocs.config import config_options
 from mkdocs.plugins import BasePlugin
 
 
 class ResponsiveImage(BasePlugin):
 
+    config_scheme = (
+        ('default_quality', config_options.Type(int, default=95)),
+        ('widths', config_options.Type(list, default=[320, 540, 960])),
+        ('base_path', config_options.Type(str, default="assets")),
+        ('output_path_format', config_options.Type(str, default="assets/resized/%{filename}-%{width}x%{height}.%{extension}")),
+    )
+
+    # Config
+    default_quality = 0
+    widths = []
+    base_path = ""
+    output_path_format = ""
+    
+    def on_config(self, config):
+        self.default_quality = self.config.get("default_quality")
+        self.widths = self.config.get("widths")
+        self.base_path = self.config.get("base_path")
+        self.output_path_format = self.config.get("output_path_format")
+        
+        # print(self.default_quality)
+        # print(self.widths)
+        # print(self.widths[0])
+        # print(self.base_path)
+        # print(self.output_path_format)
+        
+    
     def on_page_markdown(self, markdown, **kwargs):
 
         # Now we'll search on the text each occurrence
@@ -37,5 +64,11 @@ class ResponsiveImage(BasePlugin):
             print( 'String match "%s" at %d:%d' % (markdown[s:e], s, e ) )
             markdown = markdown.replace(markdown[s:e], "REPLACED")
             print( "###" )
+            
+        # load settings             - 50%
+        # find strings              - 100%
+        # extract args
+        # feed image into resizer
+        # generate new string
 
         return markdown
