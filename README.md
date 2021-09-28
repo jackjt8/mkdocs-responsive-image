@@ -50,3 +50,9 @@ plugins:
         #
         output_path_format: assets/resized/%{width}/%{dirname}/%{basename}
 ```
+
+## Usage
+
+```
+{% responsive_image path: "assets/image.jpg" alt: "Lorem ipsum..." title: "Lorem ipsum..." %}
+```

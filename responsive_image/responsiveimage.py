@@ -24,51 +24,72 @@ class ResponsiveImage(BasePlugin):
         self.base_path = self.config.get("base_path")
         self.output_path_format = self.config.get("output_path_format")
         
-        # print(self.default_quality)
-        # print(self.widths)
-        # print(self.widths[0])
-        # print(self.base_path)
-        # print(self.output_path_format)
+        print( "Default Quality: %s" % (self.default_quality) )
+        print( "Widths: %s" % (self.widths) )
+        print( "Base_path: %s" % (self.base_path) )
+        print( "Output_path_format: %s" % (self.output_path_format) )
         
     
     def on_page_markdown(self, markdown, **kwargs):
+        temp_responsive_tag = ""
 
-        # Now we'll search on the text each occurrence
-        # of the tag {{dolly}} and we'll replace it with some
-        # random lyrics.
-        # This class method (on_page_markdown) will be called each
-        # time mkdocs needs to start processing a page before
-        # rendering it in HTML.
-
-        # For sake of simplicity, we won't use regular
-        # expressions in this example to search and replace text.
-
-        # markdown = markdown.replace("{{dolly}}", random_lyrics())
-        
-        # for matchedtext in re.findall(r'^.*\{%*.%\}.*$', markdown):
-            # markdown = markdown.replace(matchedtext, "REPLACED")
-
-        # However if you prefer to use regex, please comment the
-        # previous line of code and uncomment the following ones:
-
-        # markdown = re.sub(r"\{\{(\s)*dolly(\s)*\}\}",
-        #                   random_lyrics(),
-        #                   markdown,
-        #                   flags=re.IGNORECASE)
-        #pattern = re.compile(r"\{\{(\s)*dolly(\s)*\}\}")
         pattern = re.compile(r"\{\% responsive_image.*.\%\}")
         for m in re.finditer(pattern, markdown):
             s = m.start()
             e = m.end()
             print( "###" )
-            print( 'String match "%s" at %d:%d' % (markdown[s:e], s, e ) )
-            markdown = markdown.replace(markdown[s:e], "REPLACED")
+            print( 'Responsive Image tag match "%s" at %d:%d' % (markdown[s:e], s, e ) )
+            # extract tag
+            temp_responsive_tag = markdown[s:e]
+            # blank path/alttext/title
+            temp_image_path = ""
+            temp_image_alttext = ""
+            temp_image_title = ""
+            ### markdown = markdown.replace(markdown[s:e], "REPLACED")
+            # extract args
+            temp_image_path, temp_image_alttext, temp_image_title = self.extract_tag_args(temp_responsive_tag)
+            print( "return_block" )
+            print(temp_image_path)
+            print(temp_image_alttext)
+            print(temp_image_title)
             print( "###" )
             
         # load settings             - 50%
         # find strings              - 100%
-        # extract args
+        # extract args              - 100%
+        # read image
         # feed image into resizer
         # generate new string
 
         return markdown
+        
+    def extract_tag_args(self, responsive_tag):
+        image_path = ""
+        image_alttext = ""
+        image_title = ""
+         
+        # get path
+        image_path = self.do_regex(r"path: \"(.*?)\"", responsive_tag)
+
+        # # get alt text
+        image_alttext = self.do_regex(r"alt: \"(.*?)\"", responsive_tag)
+        
+        # # get title
+        image_title = self.do_regex(r"title: \"(.*?)\"", responsive_tag)
+        
+        return image_path, image_alttext, image_title
+            
+    def do_regex(self, pattern_str, body):
+        pattern = re.compile(pattern_str)
+        result = re.search(pattern, body)
+        
+        if result:
+            print ( "Return of do_regex for patten \"%s\" is \"%s\"" % (pattern_str, result.group(1)) )
+            return result.group(1)
+        else:
+            #no result
+            return ""
+   
+
+
+# END OF FILE
