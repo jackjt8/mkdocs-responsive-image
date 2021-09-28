@@ -2,7 +2,19 @@
 
 A MkDocs plugin for automatically resizing images.
 
-WIP
+**WIP Plugin**
+
+Status -
+
+```
+        # load settings             - 50%	- might need to tweak
+        # find strings              - 100%
+        # extract args              - 100%
+        # read image				- 0%
+        # feed image into resizer	- 0%
+        # generate html				- 0%
+```
+
 
 ## Quick start
 
@@ -30,7 +42,7 @@ plugins:
 		# Set to 95 internal
         default_quality: 90
 		
-        sizes: 320, 640, 768, 1024, 1366, 1600, 1920, 3840
+        widths: 320, 640, 768, 1024, 1366, 1600, 1920, 3840
         
         # The base directory where assets are stored. This is used to determine the
         # `dirname` value in `output_path_format` below.

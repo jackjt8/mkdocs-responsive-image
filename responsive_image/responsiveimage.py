@@ -54,12 +54,12 @@ class ResponsiveImage(BasePlugin):
             print(temp_image_title)
             print( "###" )
             
-        # load settings             - 50%
+        # load settings             - 50%	- might need to tweak
         # find strings              - 100%
         # extract args              - 100%
-        # read image
-        # feed image into resizer
-        # generate new string
+        # read image				- 0%
+        # feed image into resizer	- 0%
+        # generate html     		- 0%
 
         return markdown
         
